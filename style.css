@@ -381,23 +381,44 @@
         box-shadow: var(--shadow);
       }
 
-      .project:nth-child(1) {
-        grid-column: span 7;
-        background-image: url("https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=80");
-      }
+      /* Container hides the images outside the viewport frame */
+        .slideshow-container {
+            max-width: 800px;
+            position: relative;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        /* The wrapper holding all slides inline */
+        .slides-track {
+            display: flex;
+            width: 300%; /* 100% multiplied by the number of slides (3) */
+            transition: transform 0.5s ease-in-out; /* Controls the slide speed */
+        }
+
+        /* Each slide takes up exactly 1/3 of the track width */
+        .slide {
+            width: 100%;
+        }
+
+        .slide img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
 
       .project:nth-child(2) {
-        grid-column: span 5;
+        grid-column: span 7;
         background-image: url("https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=900&q=80");
       }
 
       .project:nth-child(3) {
-        grid-column: span 5;
+        grid-column: span 7;
         background-image: url("https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=900&q=80");
       }
 
       .project:nth-child(4) {
-        grid-column: span 7;
+        grid-column: span 5;
         background-image: url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80");
       }
 
