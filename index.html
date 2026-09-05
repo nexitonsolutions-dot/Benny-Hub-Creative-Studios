@@ -164,23 +164,21 @@
           </div>
 
           <div class="work-grid">
-            <article class="project">
+            <article class="project slideshow-project" id="slideshow-card" tabindex="0" role="button" aria-label="Open current project details">
                 <div class="slideshow-container">
-                  <!-- The track that moves horizontally -->
                   <div class="slides-track" id="track">
-                      <div class="slide">
-                          <img src="images/img1.jpg" alt="Slide 1">
-                      </div>
-                      <div class="slide">
-                          <img src="images/img2.jpg" alt="Slide 2">
-                      </div>
-                      <div class="slide">
-                          <img src="images/img3.jpg" alt="Slide 3">
-                      </div>
                   </div>
+                </div>
+                <div class="project-overlay" aria-live="polite">
+                  <div class="project-copy">
+                    <small>Graphic Design</small>
+                    <strong id="slide-client"></strong>
+                  </div>
+                </div>
             </article>
 
-            <article class="project">
+            <article class="project video-project" id="video-project-card" tabindex="0" role="button" aria-label="Play event film">
+              <video class="video-thumbnail" src="videos/video_thumbnail.mp4" muted loop playsinline preload="metadata" aria-label="Event film preview"></video>
               <div class="project-overlay">
                 <div class="project-copy">
                   <small>Videography</small>
@@ -209,6 +207,20 @@
           </div>
         </div>
       </section>
+
+      <dialog class="project-dialog" id="project-dialog" aria-labelledby="dialog-client">
+        <div class="project-dialog-content">
+          <button class="dialog-close" id="dialog-close" type="button" aria-label="Close project details">&times;</button>
+          <img id="dialog-image" src="" alt="" />
+          <video id="dialog-video" controls playsinline preload="metadata" aria-label="Event film" hidden></video>
+          <progress class="video-progress" id="video-progress" value="0" max="100" aria-label="Video progress">0%</progress>
+          <div class="project-dialog-copy">
+            <small>Graphic Design</small>
+            <h2 id="dialog-client"></h2>
+            <p>Explore this featured project from Benny's Hub Studios.</p>
+          </div>
+        </div>
+      </dialog>
 
       <section id="process">
         <div class="container">
