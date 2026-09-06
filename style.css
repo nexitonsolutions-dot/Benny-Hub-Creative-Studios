@@ -441,17 +441,20 @@
 
       .project:nth-child(2) {
         grid-column: span 7;
-        background-image: url("https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=900&q=80");
       }
 
-      .project:nth-child(3) {
+      .project-photo {
         grid-column: span 7;
-        background-image: url("https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=900&q=80");
+        aspect-ratio: 3946 / 4932;
+        min-height: 420px;
+        background-image: url("images/photo.jpg");
       }
 
-      .project:nth-child(4) {
+      .project-live {
         grid-column: span 5;
-        background-image: url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80");
+        aspect-ratio: 555 / 991;
+        min-height: 420px;
+        background-image: url("images/livestream.png");
       }
 
       .project-overlay {
