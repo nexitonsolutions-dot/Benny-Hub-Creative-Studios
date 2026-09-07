@@ -364,6 +364,449 @@
         color: var(--muted);
       }
 
+      .pricing-head {
+        align-items: end;
+      }
+
+      .pricing-head .eyebrow {
+        margin-bottom: 16px;
+      }
+
+      .pricing-head h2 {
+        margin-top: 0;
+      }
+
+      .pricing-subsection {
+        margin-top: 34px;
+        padding-top: 28px;
+        border-top: 1px solid var(--line);
+      }
+
+      .subsection-heading {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 8px;
+      }
+
+      .subsection-heading h3 {
+        margin: 0;
+        font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+        letter-spacing: -0.04em;
+      }
+
+      .pricing-intro {
+        margin: 0 0 22px;
+        color: var(--muted);
+      }
+
+      .pricing-grid {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .pricing-card {
+        min-height: 236px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 1.35rem;
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.035);
+        transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      }
+
+      .pricing-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(255, 200, 87, 0.55);
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      .featured-price {
+        background: linear-gradient(180deg, rgba(255, 123, 114, 0.16), rgba(255, 255, 255, 0.035));
+        border-color: rgba(255, 123, 114, 0.42);
+      }
+
+      .pricing-number {
+        color: var(--secondary);
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+      }
+
+      .pricing-card h3 {
+        margin: 1.2rem 0 1rem;
+        font-size: 1.1rem;
+        line-height: 1.25;
+      }
+
+      .price {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        padding-top: 1rem;
+        border-top: 1px solid var(--line);
+      }
+
+      .price strong {
+        font-size: clamp(2rem, 3vw, 2.7rem);
+        line-height: 1;
+        letter-spacing: -0.06em;
+      }
+
+      .price span {
+        color: var(--muted);
+        font-size: 0.78rem;
+      }
+
+      .pricing-note {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-top: 18px;
+        padding: 1rem 1.2rem;
+        border: 1px solid rgba(255, 200, 87, 0.32);
+        border-radius: 18px;
+        background: rgba(255, 200, 87, 0.07);
+      }
+
+      .pricing-note-icon {
+        flex: 0 0 30px;
+        width: 30px;
+        height: 30px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        color: var(--bg);
+        font-weight: 900;
+        background: var(--secondary);
+      }
+
+      .pricing-note p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .pricing-note strong {
+        color: var(--text);
+      }
+
+      .photography-pricing {
+        margin-top: 52px;
+      }
+
+      .photography-packages {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .photography-package {
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.045);
+      }
+
+      .package-heading {
+        text-align: center;
+      }
+
+      .package-heading h4 {
+        margin: 0;
+        padding: 0.9rem 1rem 0.7rem;
+        color: var(--secondary);
+        font-family: Georgia, serif;
+        font-size: 1.45rem;
+        font-style: italic;
+        text-transform: uppercase;
+      }
+
+      .package-heading strong {
+        display: block;
+        padding: 0.65rem 1rem;
+        color: #fff;
+        background: #a90d10;
+        font-size: 1.1rem;
+      }
+
+      .photography-package ul {
+        min-height: 336px;
+        margin: 0;
+        padding: 1rem 1.1rem 1.2rem 2rem;
+        color: var(--muted);
+        font-size: 0.84rem;
+      }
+
+      .photography-package li {
+        margin-bottom: 0.28rem;
+      }
+
+      .studio-session-section {
+        margin-top: 34px;
+      }
+
+      .studio-session-heading {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+
+      .studio-session-heading h4 {
+        margin: 0;
+        color: var(--text);
+        font-size: 1.25rem;
+      }
+
+      .videography-pricing {
+        margin-top: 34px;
+      }
+
+      .wedding-videography-packages {
+        margin-top: 34px;
+      }
+
+      .wedding-package-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .wedding-package-grid .photography-package ul {
+        min-height: 260px;
+        font-size: 0.78rem;
+      }
+
+      .wedding-bronze {
+        border-color: rgba(205, 127, 50, 0.75);
+      }
+
+      .wedding-bronze .package-heading h4 {
+        color: #d99a5b;
+      }
+
+      .wedding-silver {
+        border-color: rgba(220, 225, 235, 0.75);
+      }
+
+      .wedding-silver .package-heading h4 {
+        color: #e3e7ef;
+      }
+
+      .wedding-gold {
+        border-color: rgba(255, 200, 87, 0.8);
+      }
+
+      .wedding-gold .package-heading h4 {
+        color: #ffc857;
+      }
+
+      .wedding-diamond {
+        border-color: rgba(217, 199, 255, 0.8);
+      }
+
+      .wedding-diamond .package-heading h4 {
+        color: #d9c7ff;
+      }
+
+      .wedding-package-note {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        margin-top: 14px;
+        padding: 0.9rem 1.1rem;
+        border-bottom: 2px solid var(--primary);
+        background: rgba(255, 123, 114, 0.08);
+        color: var(--muted);
+      }
+
+      .wedding-package-note p,
+      .wedding-package-note strong {
+        margin: 0;
+      }
+
+      .wedding-package-note strong {
+        color: var(--text);
+      }
+
+      .studio-packages .photography-package ul {
+        min-height: 126px;
+      }
+
+      .studio-pearl {
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+
+      .studio-pearl .package-heading h4 {
+        color: #f2d4ad;
+      }
+
+      .studio-ruby {
+        border-color: rgba(255, 123, 114, 0.65);
+      }
+
+      .studio-ruby .package-heading h4 {
+        color: #ff9a6c;
+      }
+
+      .studio-diamond {
+        border-color: rgba(255, 200, 87, 0.7);
+      }
+
+      .studio-diamond .package-heading h4 {
+        color: #f6d08e;
+      }
+
+      .studio-session-note {
+        margin-top: 14px;
+        padding: 0.85rem 1.1rem;
+        border-left: 3px solid var(--secondary);
+        background: rgba(255, 200, 87, 0.07);
+        color: var(--muted);
+      }
+
+      .studio-session-note p {
+        margin: 0.15rem 0;
+      }
+
+      .studio-session-note strong {
+        color: var(--secondary);
+      }
+
+      .graduation-pricing {
+        margin-top: 34px;
+      }
+
+      .graduation-bronze {
+        border-color: rgba(118, 228, 198, 0.55);
+      }
+
+      .graduation-bronze .package-heading h4 {
+        color: #76e4c6;
+      }
+
+      .graduation-silver {
+        border-color: rgba(220, 225, 235, 0.7);
+      }
+
+      .graduation-silver .package-heading h4 {
+        color: #e3e7ef;
+      }
+
+      .graduation-gold {
+        border-color: rgba(255, 200, 87, 0.75);
+      }
+
+      .graduation-gold .package-heading h4 {
+        color: #ffc857;
+      }
+
+      .package-premium {
+        border-color: rgba(255, 200, 87, 0.7);
+      }
+
+      .package-exclusive {
+        border-color: rgba(255, 123, 114, 0.7);
+      }
+
+      .photography-details {
+        display: grid;
+        grid-template-columns: 0.8fr 1.2fr;
+        gap: 16px;
+        margin-top: 18px;
+      }
+
+      .package-notes,
+      .package-extras {
+        padding: 1.2rem 1.35rem;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      .package-notes h4,
+      .package-extras h4 {
+        margin: 0 0 0.6rem;
+        color: var(--secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .package-notes p {
+        margin: 0.45rem 0 0;
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+
+      .extras-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.55rem 1rem;
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+
+      .extras-grid span {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .extras-grid strong {
+        color: var(--text);
+        white-space: nowrap;
+      }
+
+      .price-list-wrap {
+        margin-top: 22px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      .price-list-heading,
+      .price-list-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(150px, 0.42fr);
+        gap: 20px;
+        align-items: center;
+      }
+
+      .price-list-heading {
+        padding: 1rem 1.35rem;
+        color: var(--secondary);
+        background: rgba(255, 200, 87, 0.1);
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .price-list-heading span:last-child,
+      .price-list-row strong {
+        text-align: right;
+      }
+
+      .price-list-row {
+        min-height: 52px;
+        padding: 0.8rem 1.35rem;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+      }
+
+      .price-list-row strong {
+        color: var(--text);
+        font-size: 0.95rem;
+      }
+
+      .price-list-row small {
+        color: var(--muted);
+        font-size: 0.78rem;
+      }
+
       .work-grid {
         display: grid;
         grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -730,6 +1173,27 @@
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
+        .pricing-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .price-list-heading,
+        .price-list-row {
+          grid-template-columns: minmax(0, 1fr) minmax(130px, 0.55fr);
+        }
+
+        .photography-packages {
+          grid-template-columns: 1fr;
+        }
+
+        .wedding-package-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .photography-details {
+          grid-template-columns: 1fr;
+        }
+
         .project:nth-child(1),
         .project:nth-child(2),
         .project:nth-child(3),
@@ -758,8 +1222,38 @@
 
         .stats,
         .services,
+        .pricing-grid,
         .process {
           grid-template-columns: 1fr;
+        }
+
+        .price-list-heading,
+        .price-list-row {
+          grid-template-columns: minmax(0, 1fr) minmax(112px, 0.7fr);
+          gap: 12px;
+          padding-left: 1rem;
+          padding-right: 1rem;
+        }
+
+        .price-list-row {
+          font-size: 0.9rem;
+        }
+
+        .price-list-row strong {
+          font-size: 0.82rem;
+        }
+
+        .extras-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .wedding-package-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .wedding-package-note {
+          flex-direction: column;
+          gap: 6px;
         }
 
         .hero-visual {
