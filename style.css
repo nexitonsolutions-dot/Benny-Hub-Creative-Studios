@@ -890,14 +890,14 @@
         grid-column: span 7;
         aspect-ratio: 3946 / 4932;
         min-height: 420px;
-        background-image: url("images/photo.jpg");
+        background-image: url("https://ik.imagekit.io/nExiton/images/photo.jpg");
       }
 
       .project-live {
         grid-column: span 5;
         aspect-ratio: 555 / 991;
         min-height: 420px;
-        background-image: url("images/livestream.png");
+        background-image: url("https://ik.imagekit.io/nExiton/images/livestream.png");
       }
 
       .project-overlay {
@@ -1138,6 +1138,49 @@
       .cta-panel p {
         margin: 0;
         color: var(--muted);
+      }
+
+      .contact-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .contact-btn {
+        min-height: 56px;
+        padding-inline: 1.2rem;
+      }
+
+      .whatsapp-btn {
+        gap: 10px;
+        font-size: 1rem;
+      }
+
+      .whatsapp-btn svg,
+      .email-btn svg {
+        width: 20px;
+        height: 20px;
+        fill: currentColor;
+        flex-shrink: 0;
+      }
+
+      .contact-number {
+        white-space: nowrap;
+        letter-spacing: 0.02em;
+      }
+
+      .email-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-width: 120px;
+        padding-inline: 1.1rem;
+      }
+
+      .contact-btn.copied {
+        box-shadow: 0 0 0 2px rgba(118, 228, 198, 0.5), 0 12px 26px rgba(118, 228, 198, 0.2);
       }
 
       .footer {

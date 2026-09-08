@@ -12,12 +12,87 @@ const dialogImage = document.getElementById("dialog-image");
 const dialogVideo = document.getElementById("dialog-video");
 const videoProgress = document.getElementById("video-progress");
 const dialogClient = document.getElementById("dialog-client");
+const whatsappContact = document.getElementById("whatsapp-contact");
+const emailContact = document.getElementById("email-contact");
 let totalSlides = 0;
 
+async function copyToClipboard(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return;
+    }
+
+    const tempInput = document.createElement("textarea");
+    tempInput.value = text;
+    tempInput.setAttribute("readonly", "");
+    tempInput.style.position = "fixed";
+    tempInput.style.left = "-9999px";
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+}
+
+function triggerCopiedState(button) {
+    if (!button) {
+        return;
+    }
+
+    button.classList.add("copied");
+    button.setAttribute("data-copy-state", "Copied");
+    window.setTimeout(() => {
+        button.classList.remove("copied");
+        button.removeAttribute("data-copy-state");
+    }, 1200);
+}
+
+function setupLongPressCopy(button, value, label) {
+    if (!button) {
+        return;
+    }
+
+    let longPressTimer = null;
+    let longPressTriggered = false;
+
+    const handlePressStart = () => {
+        longPressTimer = window.setTimeout(async () => {
+            longPressTriggered = true;
+            try {
+                await copyToClipboard(value);
+                triggerCopiedState(button);
+            } catch (error) {
+                console.error(`Unable to copy ${label}`, error);
+            }
+        }, 700);
+    };
+
+    const cancelPress = () => {
+        if (longPressTimer) {
+            clearTimeout(longPressTimer);
+            longPressTimer = null;
+        }
+    };
+
+    button.addEventListener("pointerdown", handlePressStart);
+    button.addEventListener("pointerup", cancelPress);
+    button.addEventListener("pointerleave", cancelPress);
+    button.addEventListener("pointercancel", cancelPress);
+    button.addEventListener("click", (event) => {
+        if (longPressTriggered) {
+            event.preventDefault();
+            longPressTriggered = false;
+            return;
+        }
+    });
+}
+
+setupLongPressCopy(whatsappContact, "0570688025", "phone number");
+setupLongPressCopy(emailContact, "asarebernard828@gmail.com", "email address");
+
 const slideshowImages = {
-    "images/img1.jpg": "Koliko Events",
-    "images/img2.jpg": "Lifeway Church",
-    "images/img3.jpg": "Untamed Empire"
+    "https://ik.imagekit.io/nExiton/images/img1.jpg": "Koliko Events",
+    "https://ik.imagekit.io/nExiton/images/img2.jpg": "Lifeway Church",
+    "https://ik.imagekit.io/nExiton/images/img3.jpg": "Untamed Empire"
 };
 
 const slideshowEntries = () => Object.entries(slideshowImages);
@@ -47,7 +122,7 @@ function openVideoDetails() {
     dialogVideo.hidden = false;
     videoProgress.hidden = false;
     videoProgress.value = 0;
-    dialogVideo.src = "videos/video.mp4";
+    dialogVideo.src = "https://ik.imagekit.io/nExiton/videos/video.mp4";
     dialogClient.textContent = "Event film";
     projectDialog.showModal();
     dialogVideo.play().catch(() => {});
