@@ -122,7 +122,7 @@ function openVideoDetails() {
     dialogVideo.hidden = false;
     videoProgress.hidden = false;
     videoProgress.value = 0;
-    dialogVideo.src = "https://ik.imagekit.io/nExiton/videos/video.mp4";
+    dialogVideo.src = "https://ik.imagekit.io/nExiton/videos/video.MP4";
     dialogClient.textContent = "Event film";
     projectDialog.showModal();
     dialogVideo.play().catch(() => {});
