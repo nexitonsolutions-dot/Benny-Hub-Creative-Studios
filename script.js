@@ -14,7 +14,188 @@ const videoProgress = document.getElementById("video-progress");
 const dialogClient = document.getElementById("dialog-client");
 const whatsappContact = document.getElementById("whatsapp-contact");
 const emailContact = document.getElementById("email-contact");
+const paymentFormPanel = document.getElementById("payment-form-panel");
+const selectedPackageInput = document.getElementById("selected-package");
+const selectedPackageLabel = document.getElementById("selected-package-label");
+const pricingSectionSelect = document.getElementById("pricing-section-select");
+const pricingGroupSelect = document.getElementById("pricing-group-select");
+const pricingPackageSelect = document.getElementById("pricing-package-select");
 let totalSlides = 0;
+
+const pricingCatalog = {
+    "Graphic Design": {
+        groups: {
+            "Flyers & Cards": [
+                { label: "Birthday Flyers", value: "Birthday Flyers", price: "GHC 150" },
+                { label: "Church Flyers", value: "Church Flyers", price: "GHC 150" },
+                { label: "Business Flyers", value: "Business Flyers", price: "GHC 200" },
+                { label: "Invitation Card Only", value: "Invitation Card Only", price: "GHC 150" },
+                { label: "Business Package", value: "Business Package", price: "GHC 500" },
+                { label: "Event Package", value: "Event Package", price: "GHC 500 - 1500" }
+            ],
+            "Branding & Logos": [
+                { label: "Business Logo", value: "Business Logo", price: "GHC 500" },
+                { label: "Church / School Logo", value: "Church / School Logo", price: "GHC 600" },
+                { label: "Business Brand", value: "Business Brand", price: "GHC 800 - 1500" }
+            ],
+            "Print & Media Assets": [
+                { label: "Banner Design Only", value: "Banner Design Only", price: "GHC 150" },
+                { label: "Certificate Design Only", value: "Certificate Design Only", price: "GHC 150" },
+                { label: "Cloth / Fabric Design", value: "Cloth / Fabric Design", price: "GHC 300" },
+                { label: "Call Card Design (One Sided)", value: "Call Card Design (One Sided)", price: "GHC 200" },
+                { label: "Call Card Design (Two Sided)", value: "Call Card Design (Two Sided)", price: "GHC 350" }
+            ]
+        }
+    },
+    "Photography": {
+        groups: {
+            "Wedding Photography": [
+                { label: "Standard", value: "Wedding Photography - Standard", price: "GHC 3,000" },
+                { label: "Premium", value: "Wedding Photography - Premium", price: "GHC 4,300" },
+                { label: "Exclusive", value: "Wedding Photography - Exclusive", price: "GHC 5,000" }
+            ],
+            "Studio Sessions": [
+                { label: "Pearl", value: "Studio Session - Pearl", price: "GHC 250" },
+                { label: "Ruby", value: "Studio Session - Ruby", price: "GHC 450" },
+                { label: "Diamond", value: "Studio Session - Diamond", price: "GHC 850" }
+            ],
+            "Graduation Packages": [
+                { label: "Bronze", value: "Graduation Package - Bronze", price: "GHC 500" },
+                { label: "Silver", value: "Graduation Package - Silver", price: "GHC 700" },
+                { label: "Gold", value: "Graduation Package - Gold", price: "GHC 900" }
+            ]
+        }
+    },
+    "Videography": {
+        groups: {
+            "Event Coverage": [
+                { label: "Regular Package", value: "Videography - Regular Package", price: "GHC 3,000" },
+                { label: "VIP Package", value: "Videography - VIP Package", price: "GHC 3,500" },
+                { label: "VVIP Package", value: "Videography - VVIP Package", price: "GHC 5,000" }
+            ],
+            "Wedding Videography": [
+                { label: "Bronze", value: "Wedding Videography - Bronze", price: "GHC 2,500" },
+                { label: "Silver", value: "Wedding Videography - Silver", price: "GHC 4,000" },
+                { label: "Gold", value: "Wedding Videography - Gold", price: "GHC 5,000" },
+                { label: "Diamond", value: "Wedding Videography - Diamond", price: "GHC 7,000" }
+            ]
+        }
+    }
+};
+
+function populateSectionOptions() {
+    if (!pricingSectionSelect) {
+        return;
+    }
+
+    pricingSectionSelect.innerHTML = '<option value="">Select a section</option>' + Object.keys(pricingCatalog)
+        .map((section) => `<option value="${section}">${section}</option>`)
+        .join("");
+}
+
+function populateGroupOptions() {
+    if (!pricingSectionSelect || !pricingGroupSelect || !pricingPackageSelect) {
+        return;
+    }
+
+    const selectedSection = pricingSectionSelect.value;
+    const sectionGroups = selectedSection ? pricingCatalog[selectedSection]?.groups || {} : {};
+    const groupKeys = Object.keys(sectionGroups);
+
+    pricingGroupSelect.disabled = !selectedSection || groupKeys.length === 0;
+    pricingGroupSelect.innerHTML = '<option value="">Select a package group</option>' + groupKeys
+        .map((groupName) => `<option value="${groupName}">${groupName}</option>`)
+        .join("");
+
+    pricingPackageSelect.disabled = true;
+    pricingPackageSelect.innerHTML = '<option value="">Select a package</option>';
+    hidePaymentForm();
+}
+
+function populatePackageOptions() {
+    if (!pricingSectionSelect || !pricingGroupSelect || !pricingPackageSelect) {
+        return;
+    }
+
+    const selectedSection = pricingSectionSelect.value;
+    const selectedGroup = pricingGroupSelect.value;
+    const packageOptions = selectedSection && selectedGroup ? pricingCatalog[selectedSection]?.groups?.[selectedGroup] || [] : [];
+
+    pricingPackageSelect.disabled = packageOptions.length === 0;
+    pricingPackageSelect.innerHTML = '<option value="">Select a package</option>' + packageOptions
+        .map((packageItem) => `<option value="${packageItem.value}" data-label="${packageItem.label}" data-price="${packageItem.price}">${packageItem.label} — ${packageItem.price}</option>`)
+        .join("");
+
+    hidePaymentForm();
+}
+
+function hidePaymentForm() {
+    if (paymentFormPanel) {
+        paymentFormPanel.classList.remove("visible");
+    }
+    if (selectedPackageInput) {
+        selectedPackageInput.value = "";
+    }
+    if (selectedPackageLabel) {
+        selectedPackageLabel.textContent = "Please choose a package";
+    }
+}
+
+function showSelectedPackage() {
+    if (!pricingSectionSelect || !pricingGroupSelect || !pricingPackageSelect) {
+        return;
+    }
+
+    const packageOption = pricingPackageSelect.options[pricingPackageSelect.selectedIndex];
+
+    if (!packageOption || !packageOption.value) {
+        hidePaymentForm();
+        return;
+    }
+
+    const sectionName = pricingSectionSelect.value;
+    const groupName = pricingGroupSelect.value;
+    const packageLabel = packageOption.dataset.label || packageOption.textContent;
+    const packagePrice = packageOption.dataset.price || "";
+    const selectedText = `${sectionName} — ${groupName} — ${packageLabel} (${packagePrice})`;
+
+    if (selectedPackageInput) {
+        selectedPackageInput.value = selectedText;
+    }
+    if (selectedPackageLabel) {
+        selectedPackageLabel.textContent = selectedText;
+    }
+    if (paymentFormPanel) {
+        paymentFormPanel.classList.add("visible");
+        paymentFormPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+}
+
+pricingSectionSelect?.addEventListener("change", populateGroupOptions);
+pricingGroupSelect?.addEventListener("change", populatePackageOptions);
+pricingPackageSelect?.addEventListener("change", showSelectedPackage);
+
+populateSectionOptions();
+populateGroupOptions();
+populatePackageOptions();
+
+paymentPackages.forEach((packageCard) => {
+    packageCard.addEventListener("click", () => {
+        paymentPackages.forEach((card) => card.classList.toggle("selected", card === packageCard));
+
+        const selectedPackage = packageCard.dataset.package || "Selected package";
+        if (selectedPackageInput) {
+            selectedPackageInput.value = selectedPackage;
+        }
+        if (selectedPackageLabel) {
+            selectedPackageLabel.textContent = selectedPackage;
+        }
+        if (paymentFormPanel) {
+            paymentFormPanel.classList.add("visible");
+            paymentFormPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    });
+});
 
 async function copyToClipboard(text) {
     if (navigator.clipboard && window.isSecureContext) {
@@ -88,6 +269,24 @@ function setupLongPressCopy(button, value, label) {
 
 setupLongPressCopy(whatsappContact, "0570688025", "phone number");
 setupLongPressCopy(emailContact, "asarebernard828@gmail.com", "email address");
+
+paymentPackages.forEach((packageCard) => {
+    packageCard.addEventListener("click", () => {
+        paymentPackages.forEach((card) => card.classList.toggle("selected", card === packageCard));
+
+        const selectedPackage = packageCard.dataset.package || "Selected package";
+        if (selectedPackageInput) {
+            selectedPackageInput.value = selectedPackage;
+        }
+        if (selectedPackageLabel) {
+            selectedPackageLabel.textContent = selectedPackage;
+        }
+        if (paymentFormPanel) {
+            paymentFormPanel.classList.add("visible");
+            paymentFormPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    });
+});
 
 const slideshowImages = {
     "https://ik.imagekit.io/nExiton/images/img1.jpg": "Koliko Events",

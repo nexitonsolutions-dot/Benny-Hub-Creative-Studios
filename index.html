@@ -657,33 +657,6 @@
               <p>Let's create photography, video, content, design, sound, or a live experience that people remember.</p>
             </div>
 
-            <form class="contact-form" action="#" method="post">
-              <label class="field">
-                <span>Full Name:</span>
-                <input type="text" name="full-name" />
-              </label>
-
-              <label class="field">
-                <span>Company/Organisation:</span>
-                <input type="text" name="company" />
-              </label>
-
-              <label class="field">
-                <span>Address:</span>
-                <input type="text" name="address" />
-              </label>
-
-              <label class="field">
-                <span>Telephone:</span>
-                <input type="tel" name="telephone" />
-              </label>
-
-              <label class="field">
-                <span>Email:</span>
-                <input type="email" name="email" />
-              </label>
-            </form>
-
             <div class="contact-actions">
               <a
                 id="whatsapp-contact"
@@ -708,6 +681,74 @@
                 <span>asarebernard828@gmail.com</span>
               </a>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="make-payment" class="payment-section">
+        <div class="container">
+          <div class="payment-header">
+            <span class="eyebrow">Make payment</span>
+            <h2>Select your package.</h2>
+            <p>Choose a pricing section, then a package group, and finally the package that suits your project.</p>
+          </div>
+
+          <div class="payment-selector">
+            <label class="field">
+              <span>Choose a pricing section:</span>
+              <select id="pricing-section-select">
+                <option value="">Select a section</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Choose a package group:</span>
+              <select id="pricing-group-select" disabled>
+                <option value="">Select a package group</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Choose a package:</span>
+              <select id="pricing-package-select" disabled>
+                <option value="">Select a package</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="payment-form-panel" id="payment-form-panel">
+            <p class="selected-package-label">Selected package: <strong id="selected-package-label">Please choose a package</strong></p>
+
+            <form class="payment-form" action="#" method="post">
+              <input type="hidden" name="selected-package" id="selected-package" value="" />
+
+              <label class="field">
+                <span>Full Name:</span>
+                <input type="text" name="full-name" placeholder="Enter your full name" />
+              </label>
+
+              <label class="field">
+                <span>Company/Organisation:</span>
+                <input type="text" name="company" placeholder="Enter your company or organisation" />
+              </label>
+
+              <label class="field">
+                <span>Address:</span>
+                <input type="text" name="address" placeholder="Enter your address" />
+              </label>
+
+              <label class="field">
+                <span>Telephone:</span>
+                <input type="tel" name="telephone" placeholder="Enter your telephone number" />
+              </label>
+
+              <label class="field">
+                <span>Email:</span>
+                <input type="email" name="email" placeholder="Enter your email address" />
+              </label>
+
+              <button class="btn btn-primary payment-submit" type="submit">Submit payment request</button>
+            </form>
           </div>
         </div>
       </section>
