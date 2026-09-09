@@ -1060,6 +1060,11 @@
         gap: 18px;
       }
 
+      .review-stack {
+        display: grid;
+        gap: 18px;
+      }
+
       .quote {
         padding: 2rem;
         border-radius: 28px;
@@ -1067,23 +1072,32 @@
         border: 1px solid var(--line);
       }
 
+      .review-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 220px;
+      }
+
       .quote p {
-        font-size: clamp(1.15rem, 1.5vw, 1.9rem);
-        line-height: 1.4;
-        margin: 0 0 22px;
+        font-size: clamp(1.05rem, 1.3vw, 1.55rem);
+        line-height: 1.5;
+        margin: 0;
       }
 
       .client {
         display: flex;
         align-items: center;
         gap: 14px;
+        margin-bottom: 18px;
       }
 
       .client img {
-        width: 52px;
-        height: 52px;
+        width: 58px;
+        height: 58px;
         border-radius: 50%;
         object-fit: cover;
+        border: 2px solid rgba(255,255,255,0.1);
       }
 
       .client strong {
@@ -1122,11 +1136,14 @@
         border: 1px solid var(--line);
         border-radius: 32px;
         padding: clamp(2rem, 5vw, 4rem);
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: center;
-        gap: 18px;
+        display: grid;
+        grid-template-columns: 1fr 1.2fr auto;
+        align-items: start;
+        gap: 22px;
+      }
+
+      .contact-copy {
+        min-width: 0;
       }
 
       .cta-panel h2 {
@@ -1140,11 +1157,45 @@
         color: var(--muted);
       }
 
+      .contact-form {
+        display: grid;
+        gap: 14px;
+      }
+
+      .field {
+        display: grid;
+        gap: 8px;
+        font-size: 0.95rem;
+        color: var(--text);
+      }
+
+      .field span {
+        font-weight: 600;
+      }
+
+      .field input {
+        width: 100%;
+        min-height: 46px;
+        padding: 0.8rem 0.9rem;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 12px;
+        background: rgba(8, 12, 24, 0.2);
+        color: var(--text);
+        font: inherit;
+      }
+
+      .field input:focus {
+        outline: none;
+        border-color: rgba(255, 123, 114, 0.8);
+        box-shadow: 0 0 0 3px rgba(255, 123, 114, 0.15);
+      }
+
       .contact-actions {
         display: flex;
-        align-items: center;
+        flex-direction: column;
+        align-items: stretch;
         gap: 12px;
-        flex-wrap: wrap;
+        min-width: 220px;
       }
 
       .contact-btn {
