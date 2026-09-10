@@ -20,7 +20,17 @@ const selectedPackageLabel = document.getElementById("selected-package-label");
 const pricingSectionSelect = document.getElementById("pricing-section-select");
 const pricingGroupSelect = document.getElementById("pricing-group-select");
 const pricingPackageSelect = document.getElementById("pricing-package-select");
+const projectSummaryForm = document.getElementById("project-summary-form");
+const projectSummaryStatus = document.getElementById("project-summary-status");
+const projectSummaryMessage = document.getElementById("project-summary-message");
+const projectSummaryTitle = document.getElementById("project-summary-title");
 let totalSlides = 0;
+
+const emailJsConfig = {
+    publicKey: "cQS4i2H1IU7rSdOR1",
+    serviceId: "service_9y5tuik",
+    templateId: "template_2fim987"
+};
 
 const pricingCatalog = {
     "Graphic Design": {
@@ -50,9 +60,9 @@ const pricingCatalog = {
     "Photography": {
         groups: {
             "Wedding Photography": [
-                { label: "Standard", value: "Wedding Photography - Standard", price: "GHC 3,000" },
-                { label: "Premium", value: "Wedding Photography - Premium", price: "GHC 4,300" },
-                { label: "Exclusive", value: "Wedding Photography - Exclusive", price: "GHC 5,000" }
+                { label: "Standard", value: "Wedding Photography - Standard", price: "GHC 4,500" },
+                { label: "Premium", value: "Wedding Photography - Premium", price: "GHC 6,500" },
+                { label: "Exclusive", value: "Wedding Photography - Exclusive", price: "GHC 8,000" }
             ],
             "Studio Sessions": [
                 { label: "Pearl", value: "Studio Session - Pearl", price: "GHC 250" },
@@ -74,10 +84,11 @@ const pricingCatalog = {
                 { label: "VVIP Package", value: "Videography - VVIP Package", price: "GHC 5,000" }
             ],
             "Wedding Videography": [
-                { label: "Bronze", value: "Wedding Videography - Bronze", price: "GHC 2,500" },
-                { label: "Silver", value: "Wedding Videography - Silver", price: "GHC 4,000" },
-                { label: "Gold", value: "Wedding Videography - Gold", price: "GHC 5,000" },
-                { label: "Diamond", value: "Wedding Videography - Diamond", price: "GHC 7,000" }
+                { label: "Bronze", value: "Wedding Videography - Bronze", price: "GHC 3,500" },
+                { label: "Silver", value: "Wedding Videography - Silver", price: "GHC 5,500" },
+                { label: "Gold", value: "Wedding Videography - Gold", price: "GHC 6,500" },
+                { label: "Diamond", value: "Wedding Videography - Diamond", price: "GHC 7,500" },
+                { label: "Combo Pack", value: "Wedding Videography - Combo Pack", price: "GHC 9,500" }
             ]
         }
     }
@@ -179,22 +190,86 @@ populateSectionOptions();
 populateGroupOptions();
 populatePackageOptions();
 
-paymentPackages.forEach((packageCard) => {
-    packageCard.addEventListener("click", () => {
-        paymentPackages.forEach((card) => card.classList.toggle("selected", card === packageCard));
+function buildProjectSummaryMessage() {
+    const formData = new FormData(projectSummaryForm);
+    const values = new Map();
 
-        const selectedPackage = packageCard.dataset.package || "Selected package";
-        if (selectedPackageInput) {
-            selectedPackageInput.value = selectedPackage;
+    formData.forEach((value, key) => {
+        if (key === "message" || value === "") {
+            return;
         }
-        if (selectedPackageLabel) {
-            selectedPackageLabel.textContent = selectedPackage;
-        }
-        if (paymentFormPanel) {
-            paymentFormPanel.classList.add("visible");
-            paymentFormPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+
+        const currentValues = values.get(key) || [];
+        currentValues.push(value);
+        values.set(key, currentValues);
+    });
+
+    projectSummaryForm.querySelectorAll(".summary-static-value").forEach((staticValue) => {
+        const field = staticValue.closest(".summary-field");
+        const label = field?.querySelector(":scope > span")?.textContent.trim();
+        if (label) {
+            values.set(label, [staticValue.textContent.trim()]);
         }
     });
+
+    return Array.from(values.entries())
+        .map(([key, fieldValues]) => `${key.replaceAll("-", " ")}: ${fieldValues.join(", ")}`)
+        .join("\n");
+}
+
+projectSummaryForm?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    if (!projectSummaryForm.checkValidity()) {
+        projectSummaryForm.reportValidity();
+        return;
+    }
+
+    if (!window.emailjs || Object.values(emailJsConfig).some((value) => value.startsWith("YOUR_EMAILJS_"))) {
+        if (projectSummaryStatus) {
+            projectSummaryStatus.textContent = "Email service is not configured yet. Please add the EmailJS keys.";
+            projectSummaryStatus.className = "summary-form-status error";
+        }
+        return;
+    }
+
+    const submitButton = projectSummaryForm.querySelector(".summary-submit");
+    if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = "Sending...";
+    }
+    if (projectSummaryStatus) {
+        projectSummaryStatus.textContent = "Sending your project summary...";
+        projectSummaryStatus.className = "summary-form-status";
+    }
+
+    try {
+        if (projectSummaryMessage) {
+            projectSummaryMessage.value = buildProjectSummaryMessage();
+        }
+        if (projectSummaryTitle) {
+            const clientName = projectSummaryForm.elements.name.value.trim() || "Client";
+            projectSummaryTitle.value = `Project Scheduled by '${clientName}'.`;
+        }
+        emailjs.init({ publicKey: emailJsConfig.publicKey });
+        await emailjs.sendForm(emailJsConfig.serviceId, emailJsConfig.templateId, projectSummaryForm);
+        projectSummaryForm.reset();
+        if (projectSummaryStatus) {
+            projectSummaryStatus.textContent = "Project summary sent successfully.";
+            projectSummaryStatus.className = "summary-form-status success";
+        }
+    } catch (error) {
+        console.error("Unable to send project summary", error);
+        if (projectSummaryStatus) {
+            projectSummaryStatus.textContent = "Unable to send the project summary. Please try again.";
+            projectSummaryStatus.className = "summary-form-status error";
+        }
+    } finally {
+        if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent = "Submit project summary";
+        }
+    }
 });
 
 async function copyToClipboard(text) {
@@ -269,24 +344,6 @@ function setupLongPressCopy(button, value, label) {
 
 setupLongPressCopy(whatsappContact, "0570688025", "phone number");
 setupLongPressCopy(emailContact, "asarebernard828@gmail.com", "email address");
-
-paymentPackages.forEach((packageCard) => {
-    packageCard.addEventListener("click", () => {
-        paymentPackages.forEach((card) => card.classList.toggle("selected", card === packageCard));
-
-        const selectedPackage = packageCard.dataset.package || "Selected package";
-        if (selectedPackageInput) {
-            selectedPackageInput.value = selectedPackage;
-        }
-        if (selectedPackageLabel) {
-            selectedPackageLabel.textContent = selectedPackage;
-        }
-        if (paymentFormPanel) {
-            paymentFormPanel.classList.add("visible");
-            paymentFormPanel.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-    });
-});
 
 const slideshowImages = {
     "https://ik.imagekit.io/nExiton/images/img1.jpg": "Koliko Events",
