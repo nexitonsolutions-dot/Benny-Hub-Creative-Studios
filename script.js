@@ -1,5 +1,182 @@
 document.getElementById("year").textContent = new Date().getFullYear();
 
+const navToggle = document.getElementById("nav-toggle");
+const mainNav = document.getElementById("main-nav");
+navToggle?.addEventListener("click", () => {
+    const open = mainNav?.classList.toggle("open");
+    navToggle.setAttribute("aria-expanded", String(Boolean(open)));
+    navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+});
+mainNav?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+        mainNav.classList.remove("open");
+        navToggle?.setAttribute("aria-expanded", "false");
+    });
+});
+
+const heroDecor = document.getElementById("hero-decor");
+const heroSection = heroDecor?.closest(".hero");
+const floaterAssets = [
+    "assets/camera.svg",
+    "assets/lens.svg",
+    "assets/film.svg",
+    "assets/tripod.svg",
+    "assets/drone.svg",
+    "assets/spotlight.svg",
+    "assets/mic.svg",
+    "assets/headphones.svg",
+    "assets/clapperboard.svg",
+    "assets/projector.svg",
+    "assets/webcam.svg",
+    "assets/speaker.svg",
+    "assets/aperture.svg",
+    "assets/video.svg"
+];
+let floaterBag = [];
+
+const drawFloaterAsset = () => {
+    if (floaterBag.length === 0) {
+        floaterBag = [...floaterAssets];
+        for (let i = floaterBag.length - 1; i > 0; i -= 1) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [floaterBag[i], floaterBag[j]] = [floaterBag[j], floaterBag[i]];
+        }
+    }
+    return floaterBag.pop();
+};
+
+if (heroDecor && heroSection && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    floaterAssets.forEach((src) => {
+        const preload = new Image();
+        preload.src = src;
+    });
+
+    const smallScreen = window.matchMedia("(max-width: 620px)");
+    let heroVisible = true;
+
+    if ("IntersectionObserver" in window) {
+        new IntersectionObserver(([entry]) => {
+            heroVisible = entry.isIntersecting;
+        }).observe(heroSection);
+    }
+
+    const randomBetween = (min, max) => min + Math.random() * (max - min);
+
+    const pickLane = (taken) => {
+        let lane = randomBetween(2, 90);
+        for (let attempt = 0; attempt < 6 && taken.some((t) => Math.abs(t - lane) < 22); attempt += 1) {
+            lane = randomBetween(2, 90);
+        }
+        return lane;
+    };
+
+    const spawnFloater = (taken) => {
+        if (!heroVisible || document.hidden) {
+            return;
+        }
+
+        const floater = document.createElement("img");
+        floater.className = "floater";
+        floater.alt = "";
+        floater.src = drawFloaterAsset();
+
+        const size = smallScreen.matches ? randomBetween(28, 46) : randomBetween(34, 58);
+        const lane = pickLane(taken);
+        floater.style.width = `${size}px`;
+        floater.style.left = `${lane}%`;
+
+        const riseHeight = heroSection.offsetHeight + 200;
+        const drift = randomBetween(-40, 40);
+        const duration = randomBetween(35000, 45000);
+
+        heroDecor.appendChild(floater);
+        const rise = floater.animate(
+            [
+                { transform: "translate(0, 0) rotate(0deg)", opacity: 0 },
+                { transform: `translate(${drift * 0.4}px, ${-riseHeight * 0.25}px) rotate(2deg)`, opacity: 0.05, offset: 0.2 },
+                { transform: `translate(${drift}px, ${-riseHeight}px) rotate(-2deg)`, opacity: 0 }
+            ],
+            { duration, easing: "linear", fill: "forwards" }
+        );
+        rise.onfinish = () => floater.remove();
+        return lane;
+    };
+
+    const spawnBurst = () => {
+        const taken = [];
+        const first = spawnFloater(taken);
+        if (typeof first === "number") {
+            taken.push(first);
+        }
+        spawnFloater(taken);
+    };
+
+    window.setInterval(spawnBurst, 4000);
+    window.setTimeout(spawnBurst, 400);
+}
+const sectionIds = ["about", "work", "services", "pricing", "process", "schedule", "contact"];
+const navAnchors = new Map();
+
+document.querySelectorAll(".choice-pills").forEach((group) => {
+    const thumb = document.createElement("span");
+    thumb.className = "pill-thumb";
+    thumb.setAttribute("aria-hidden", "true");
+    group.prepend(thumb);
+
+    const moveThumb = (instant = false) => {
+        const label = group.querySelector("input:checked")?.closest("label");
+        if (!label) {
+            return;
+        }
+        if (instant) {
+            thumb.style.transition = "none";
+        }
+        thumb.style.transform = `translateX(${label.offsetLeft}px)`;
+        thumb.style.width = `${label.offsetWidth}px`;
+        if (instant) {
+            void thumb.offsetWidth;
+            thumb.style.transition = "";
+        }
+    };
+
+    group.querySelectorAll("input").forEach((input) => {
+        input.addEventListener("change", () => moveThumb());
+    });
+    window.addEventListener("resize", () => moveThumb(true));
+    window.addEventListener("load", () => moveThumb(true));
+    if (document.fonts?.ready) {
+        document.fonts.ready.then(() => moveThumb(true));
+    }
+    moveThumb(true);
+});
+mainNav?.querySelectorAll("a").forEach((link) => {
+    const hash = link.getAttribute("href");
+    if (hash && hash.startsWith("#")) {
+        navAnchors.set(hash.slice(1), link);
+    }
+});
+
+if ("IntersectionObserver" in window && navAnchors.size) {
+    let current = "";
+    const spy = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                current = entry.target.id;
+            }
+        });
+        navAnchors.forEach((link, id) => {
+            link.classList.toggle("active", id === current);
+        });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+
+    sectionIds.forEach((id) => {
+        const section = document.getElementById(id);
+        if (section) {
+            spy.observe(section);
+        }
+    });
+}
+
 let slideIndex = 0;
 const track = document.getElementById("track");
 const slideClient = document.getElementById("slide-client");
@@ -27,9 +204,9 @@ const projectSummaryTitle = document.getElementById("project-summary-title");
 let totalSlides = 0;
 
 const emailJsConfig = {
-    publicKey: "cQS4i2H1IU7rSdOR1",
-    serviceId: "service_9y5tuik",
-    templateId: "template_2fim987"
+    publicKey: "y1iAuzvHV73KBFnCO",
+    serviceId: "service_mb0xwrg",
+    templateId: "template_mpjqqvi"
 };
 
 const pricingCatalog = {
@@ -134,7 +311,7 @@ function populatePackageOptions() {
 
     pricingPackageSelect.disabled = packageOptions.length === 0;
     pricingPackageSelect.innerHTML = '<option value="">Select a package</option>' + packageOptions
-        .map((packageItem) => `<option value="${packageItem.value}" data-label="${packageItem.label}" data-price="${packageItem.price}">${packageItem.label} — ${packageItem.price}</option>`)
+        .map((packageItem) => `<option value="${packageItem.value}" data-label="${packageItem.label}" data-price="${packageItem.price}">${packageItem.label} · ${packageItem.price}</option>`)
         .join("");
 
     hidePaymentForm();
@@ -168,7 +345,7 @@ function showSelectedPackage() {
     const groupName = pricingGroupSelect.value;
     const packageLabel = packageOption.dataset.label || packageOption.textContent;
     const packagePrice = packageOption.dataset.price || "";
-    const selectedText = `${sectionName} — ${groupName} — ${packageLabel} (${packagePrice})`;
+    const selectedText = `${sectionName} · ${groupName} · ${packageLabel} (${packagePrice})`;
 
     if (selectedPackageInput) {
         selectedPackageInput.value = selectedText;
@@ -406,6 +583,8 @@ function buildSlideshowCards(imageNameMap) {
         const image = document.createElement("img");
         image.src = imagePath;
         image.alt = `${clientName} project`;
+        image.decoding = "async";
+        image.loading = index === 0 ? "eager" : "lazy";
 
         slide.appendChild(image);
         track.appendChild(slide);
@@ -443,15 +622,22 @@ function slideShow() {
 buildSlideshowCards(slideshowImages);
 
 if (videoThumbnail && "IntersectionObserver" in window) {
-    const videoObserver = new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting) {
-            videoThumbnail.play().catch(() => {});
-        } else {
-            videoThumbnail.pause();
-        }
-    }, { threshold: 0.25 });
+    const saveData = navigator.connection?.saveData;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isMobile = window.matchMedia("(max-width: 620px)").matches;
+    if (saveData || reduceMotion || isMobile) {
+        videoThumbnail.preload = "none";
+    } else {
+        const videoObserver = new IntersectionObserver(([entry]) => {
+            if (entry.isIntersecting) {
+                videoThumbnail.play().catch(() => {});
+            } else {
+                videoThumbnail.pause();
+            }
+        }, { threshold: 0.25 });
 
-    videoObserver.observe(videoThumbnail);
+        videoObserver.observe(videoThumbnail);
+    }
 }
 
 slideshowCard?.addEventListener("click", openProjectDetails);
