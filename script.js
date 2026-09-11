@@ -87,7 +87,7 @@ if (heroDecor && heroSection && !window.matchMedia("(prefers-reduced-motion: red
 
         const riseHeight = heroSection.offsetHeight + 200;
         const drift = randomBetween(-40, 40);
-        const duration = randomBetween(22000, 30000);
+        const duration = randomBetween(35000, 45000);
 
         heroDecor.appendChild(floater);
         const rise = floater.animate(
@@ -111,7 +111,7 @@ if (heroDecor && heroSection && !window.matchMedia("(prefers-reduced-motion: red
         spawnFloater(taken);
     };
 
-    window.setInterval(spawnBurst, 2600);
+    window.setInterval(spawnBurst, 4000);
     window.setTimeout(spawnBurst, 400);
 }
 const sectionIds = ["about", "work", "services", "pricing", "process", "schedule", "contact"];
