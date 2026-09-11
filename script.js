@@ -14,6 +14,36 @@ mainNav?.querySelectorAll("a").forEach((link) => {
     });
 });
 
+const sectionIds = ["about", "work", "services", "pricing", "process", "schedule", "contact"];
+const navAnchors = new Map();
+mainNav?.querySelectorAll("a").forEach((link) => {
+    const hash = link.getAttribute("href");
+    if (hash && hash.startsWith("#")) {
+        navAnchors.set(hash.slice(1), link);
+    }
+});
+
+if ("IntersectionObserver" in window && navAnchors.size) {
+    let current = "";
+    const spy = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                current = entry.target.id;
+            }
+        });
+        navAnchors.forEach((link, id) => {
+            link.classList.toggle("active", id === current);
+        });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+
+    sectionIds.forEach((id) => {
+        const section = document.getElementById(id);
+        if (section) {
+            spy.observe(section);
+        }
+    });
+}
+
 let slideIndex = 0;
 const track = document.getElementById("track");
 const slideClient = document.getElementById("slide-client");
@@ -148,7 +178,7 @@ function populatePackageOptions() {
 
     pricingPackageSelect.disabled = packageOptions.length === 0;
     pricingPackageSelect.innerHTML = '<option value="">Select a package</option>' + packageOptions
-        .map((packageItem) => `<option value="${packageItem.value}" data-label="${packageItem.label}" data-price="${packageItem.price}">${packageItem.label} — ${packageItem.price}</option>`)
+        .map((packageItem) => `<option value="${packageItem.value}" data-label="${packageItem.label}" data-price="${packageItem.price}">${packageItem.label} · ${packageItem.price}</option>`)
         .join("");
 
     hidePaymentForm();
@@ -182,7 +212,7 @@ function showSelectedPackage() {
     const groupName = pricingGroupSelect.value;
     const packageLabel = packageOption.dataset.label || packageOption.textContent;
     const packagePrice = packageOption.dataset.price || "";
-    const selectedText = `${sectionName} — ${groupName} — ${packageLabel} (${packagePrice})`;
+    const selectedText = `${sectionName} · ${groupName} · ${packageLabel} (${packagePrice})`;
 
     if (selectedPackageInput) {
         selectedPackageInput.value = selectedText;

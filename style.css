@@ -49,10 +49,6 @@
         color: var(--muted);
       }
 
-      .section-label::before {
-        content: "— ";
-      }
-
       img {
         max-width: 100%;
         display: block;
@@ -116,12 +112,29 @@
       }
 
       .nav-links a {
+        position: relative;
+        padding-bottom: 4px;
         transition: color 0.2s ease;
       }
 
       .nav-links a:hover,
       .nav-links a:focus-visible {
         color: var(--text);
+      }
+
+      .nav-links a.active {
+        color: var(--text);
+      }
+
+      .nav-links a.active::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 2px;
+        border-radius: 2px;
+        background: var(--text);
       }
 
       .nav-toggle {
@@ -176,7 +189,47 @@
       }
 
       .hero {
+        position: relative;
+        overflow: clip;
         padding: 56px 0 28px;
+      }
+
+      .hero-decor {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        color: var(--text);
+      }
+
+      .float-el {
+        position: absolute;
+        opacity: 0.07;
+        animation: floaty 9s ease-in-out infinite;
+      }
+
+      .float-camera {
+        width: 120px;
+        top: 8%;
+        left: 4%;
+      }
+
+      .float-lens {
+        width: 90px;
+        bottom: 10%;
+        left: 44%;
+        animation-delay: -3s;
+      }
+
+      .float-clap {
+        width: 100px;
+        top: 14%;
+        right: 5%;
+        animation-delay: -6s;
+      }
+
+      @keyframes floaty {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-14px) rotate(3deg); }
       }
 
       .hero-grid {
@@ -1547,6 +1600,18 @@
           padding-top: 32px;
         }
 
+        .float-lens {
+          display: none;
+        }
+
+        .float-camera {
+          width: 84px;
+        }
+
+        .float-clap {
+          width: 72px;
+        }
+
         h1 {
           font-size: clamp(2.3rem, 11vw, 3rem);
         }
@@ -1631,5 +1696,9 @@
 
         .slides-track {
           transition: none;
+        }
+
+        .float-el {
+          animation: none;
         }
       }
