@@ -203,43 +203,12 @@
 
       .floater {
         position: absolute;
-        width: 110px;
+        bottom: -90px;
         height: auto;
         opacity: 0;
         filter: brightness(0) invert(1);
-        transition: opacity 0.8s ease, transform 3.5s ease;
-        will-change: opacity, transform;
-      }
-
-      .floater.is-visible {
-        opacity: 0.08;
-      }
-
-      .floater.pos-a {
-        top: 10%;
-        left: 4%;
-      }
-
-      .floater.pos-b {
-        top: 16%;
-        right: 5%;
-      }
-
-      .floater.pos-c {
-        bottom: 12%;
-        left: 42%;
-      }
-
-      .floater.is-visible.pos-a {
-        transform: translateY(-12px) rotate(2deg);
-      }
-
-      .floater.is-visible.pos-b {
-        transform: translateY(-10px) rotate(-2deg);
-      }
-
-      .floater.is-visible.pos-c {
-        transform: translateY(-14px) rotate(1deg);
+        pointer-events: none;
+        will-change: transform, opacity;
       }
 
       .hero-grid {
@@ -1611,11 +1580,7 @@
         }
 
         .floater {
-          width: 76px;
-        }
-
-        .floater.pos-c {
-          display: none;
+          bottom: -70px;
         }
 
         h1 {

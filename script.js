@@ -14,7 +14,8 @@ mainNav?.querySelectorAll("a").forEach((link) => {
     });
 });
 
-const heroFloater = document.getElementById("hero-floater");
+const heroDecor = document.getElementById("hero-decor");
+const heroSection = heroDecor?.closest(".hero");
 const floaterAssets = [
     "assets/camera.svg",
     "assets/lens.svg",
@@ -23,34 +24,57 @@ const floaterAssets = [
     "assets/drone.svg",
     "assets/spotlight.svg"
 ];
-const floaterPositions = ["pos-a", "pos-b", "pos-c"];
 
-if (heroFloater && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+if (heroDecor && heroSection && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     floaterAssets.forEach((src) => {
         const preload = new Image();
         preload.src = src;
     });
 
-    let floaterIndex = 0;
-    const LIVE_MS = 3000;
-    const FADE_MS = 800;
-    const GAP_MS = 1200;
+    const smallScreen = window.matchMedia("(max-width: 620px)");
+    let heroVisible = true;
 
-    const showNextFloater = () => {
-        heroFloater.classList.remove("is-visible", ...floaterPositions);
-        heroFloater.src = floaterAssets[floaterIndex % floaterAssets.length];
-        heroFloater.classList.add(floaterPositions[floaterIndex % floaterPositions.length]);
-        void heroFloater.offsetWidth;
-        heroFloater.classList.add("is-visible");
-        floaterIndex += 1;
+    if ("IntersectionObserver" in window) {
+        new IntersectionObserver(([entry]) => {
+            heroVisible = entry.isIntersecting;
+        }).observe(heroSection);
+    }
 
-        window.setTimeout(() => {
-            heroFloater.classList.remove("is-visible");
-            window.setTimeout(showNextFloater, FADE_MS + GAP_MS);
-        }, LIVE_MS);
+    const randomBetween = (min, max) => min + Math.random() * (max - min);
+
+    const spawnFloater = () => {
+        const maxAlive = smallScreen.matches ? 3 : 4;
+        if (!heroVisible || document.hidden || heroDecor.childElementCount >= maxAlive) {
+            return;
+        }
+
+        const floater = document.createElement("img");
+        floater.className = "floater";
+        floater.alt = "";
+        floater.src = floaterAssets[Math.floor(Math.random() * floaterAssets.length)];
+
+        const size = smallScreen.matches ? randomBetween(28, 46) : randomBetween(34, 58);
+        floater.style.width = `${size}px`;
+        floater.style.left = `${randomBetween(2, 90)}%`;
+
+        const riseHeight = heroSection.offsetHeight + 200;
+        const drift = randomBetween(-40, 40);
+        const duration = randomBetween(8000, 13000);
+
+        heroDecor.appendChild(floater);
+        const rise = floater.animate(
+            [
+                { transform: "translate(0, 0) rotate(0deg)", opacity: 0 },
+                { transform: `translate(${drift * 0.4}px, ${-riseHeight * 0.25}px) rotate(2deg)`, opacity: 0.1, offset: 0.2 },
+                { transform: `translate(${drift}px, ${-riseHeight}px) rotate(-2deg)`, opacity: 0 }
+            ],
+            { duration, easing: "linear", fill: "forwards" }
+        );
+        rise.onfinish = () => floater.remove();
     };
 
-    window.setTimeout(showNextFloater, 600);
+    window.setInterval(spawnFloater, 2200);
+    window.setTimeout(spawnFloater, 400);
 }
 const sectionIds = ["about", "work", "services", "pricing", "process", "schedule", "contact"];
 const navAnchors = new Map();
