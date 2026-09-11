@@ -1,5 +1,19 @@
 document.getElementById("year").textContent = new Date().getFullYear();
 
+const navToggle = document.getElementById("nav-toggle");
+const mainNav = document.getElementById("main-nav");
+navToggle?.addEventListener("click", () => {
+    const open = mainNav?.classList.toggle("open");
+    navToggle.setAttribute("aria-expanded", String(Boolean(open)));
+    navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+});
+mainNav?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+        mainNav.classList.remove("open");
+        navToggle?.setAttribute("aria-expanded", "false");
+    });
+});
+
 let slideIndex = 0;
 const track = document.getElementById("track");
 const slideClient = document.getElementById("slide-client");
@@ -406,6 +420,8 @@ function buildSlideshowCards(imageNameMap) {
         const image = document.createElement("img");
         image.src = imagePath;
         image.alt = `${clientName} project`;
+        image.decoding = "async";
+        image.loading = index === 0 ? "eager" : "lazy";
 
         slide.appendChild(image);
         track.appendChild(slide);
@@ -443,15 +459,22 @@ function slideShow() {
 buildSlideshowCards(slideshowImages);
 
 if (videoThumbnail && "IntersectionObserver" in window) {
-    const videoObserver = new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting) {
-            videoThumbnail.play().catch(() => {});
-        } else {
-            videoThumbnail.pause();
-        }
-    }, { threshold: 0.25 });
+    const saveData = navigator.connection?.saveData;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isMobile = window.matchMedia("(max-width: 620px)").matches;
+    if (saveData || reduceMotion || isMobile) {
+        videoThumbnail.preload = "none";
+    } else {
+        const videoObserver = new IntersectionObserver(([entry]) => {
+            if (entry.isIntersecting) {
+                videoThumbnail.play().catch(() => {});
+            } else {
+                videoThumbnail.pause();
+            }
+        }, { threshold: 0.25 });
 
-    videoObserver.observe(videoThumbnail);
+        videoObserver.observe(videoThumbnail);
+    }
 }
 
 slideshowCard?.addEventListener("click", openProjectDetails);

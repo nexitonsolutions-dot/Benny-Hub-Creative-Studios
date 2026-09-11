@@ -7,11 +7,13 @@
       name="description"
       content="Benny's Hub Studios provides photography, videography, content creation, graphic design, sound design, and live streaming."
     />
+    <meta name="theme-color" content="#101012" />
     <title>Benny's Hub Studios</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://ik.imagekit.io" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
@@ -21,12 +23,16 @@
       <div class="container nav">
         <a href="#home" class="brand" aria-label="Benny's Hub Studios home">
           <span class="brand-mark">
-            <img src="Official Logo.png" alt="Benny's Hub Studios official logo" />
+            <img src="Official Logo.png" alt="Benny's Hub Studios official logo" width="52" height="52" decoding="async" />
           </span>
           <span>Benny's Hub Studios</span>
         </a>
 
-        <nav class="nav-links" aria-label="Main navigation">
+        <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="main-nav">
+          <span></span><span></span>
+        </button>
+
+        <nav class="nav-links" id="main-nav" aria-label="Main navigation">
           <a href="#about">About</a>
           <a href="#work">Work</a>
           <a href="#services">Services</a>
@@ -44,13 +50,12 @@
       <section class="hero">
         <div class="container hero-grid">
           <div class="hero-copy">
-            <span class="eyebrow">Creative production studio</span>
+            <p class="hero-kicker">Benny's Hub Studios — Accra</p>
             <h1>
-              We create moments that feel
-              <span class="gradient-text">vivid, meaningful, and unforgettable.</span>
+              Moments that feel <em>vivid</em> &amp; unforgettable.
             </h1>
             <p>
-              Benny's Hub Studios brings your vision to life through photography, video, design, sound, and live experiences made to connect with your audience.
+              Photography, film, design, sound &amp; live streaming — made to connect.
             </p>
 
             <div class="cta-row">
@@ -59,22 +64,21 @@
             </div>
 
             <div class="trust-row" aria-label="Client trust indicators">
-              <span>Trusted by 40+ clients</span>
-              <span>8 yrs experience</span>
-              <span>Full-service creative team</span>
+              <span>40+ clients</span>
+              <span>8 yrs</span>
+              <span>Full-service team</span>
             </div>
           </div>
 
           <div class="hero-visual" aria-label="Benny's Hub Studios creative production image">
-            <div class="badge">
-              <strong>2024</strong>
-                <span>Creative production</span>
-            </div>
-
             <div class="profile-card">
               <img
                 src="portrait.PNG"
                 alt="Benny's Hub Studios creative director"
+                fetchpriority="high"
+                decoding="async"
+                width="720"
+                height="900"
               />
             </div>
           </div>
@@ -84,28 +88,29 @@
       <section id="about">
         <div class="container">
           <div class="section-head">
-            <h2>One creative partner for every way your story needs to be seen and heard.</h2>
-            <p>
-              Benny's Hub Studios combines strategy, craft, and reliable execution to help your ideas make an impact.
-            </p>
+            <div>
+              <p class="section-label">About</p>
+              <h2>One partner for photo, film &amp; design.</h2>
+            </div>
+            <p>Strategy, craft and reliable delivery — without the back-and-forth.</p>
           </div>
 
           <div class="stats">
             <div class="stat-card">
               <strong>8+</strong>
-              <span>Years of creative production</span>
+              <span>Years shooting</span>
             </div>
             <div class="stat-card">
               <strong>120</strong>
-              <span>Projects launched</span>
+              <span>Projects done</span>
             </div>
             <div class="stat-card">
-              <strong>15</strong>
-              <span>Creative productions delivered</span>
+              <strong>40+</strong>
+              <span>Happy clients</span>
             </div>
             <div class="stat-card">
               <strong>96%</strong>
-              <span>Repeat client rate</span>
+              <span>Come back again</span>
             </div>
           </div>
         </div>
@@ -114,39 +119,43 @@
       <section id="services">
         <div class="container">
           <div class="section-head">
-            <h2>Services built around your story.</h2>
+            <div>
+              <p class="section-label">Services</p>
+              <h2>What we do best.</h2>
+            </div>
+            <p>Six services. One team. Pick one or bundle them.</p>
           </div>
 
           <div class="services">
             <article class="service-card">
-              <div class="icon">◉</div>
+              <span class="service-num" aria-hidden="true">01</span>
               <h3>Photography</h3>
-              <p>Professional portraits, products, events, and campaign images that capture your people, products, and moments with intention.</p>
+              <p>Portraits, events and products — sharp, natural, on time.</p>
             </article>
             <article class="service-card">
-              <div class="icon">▣</div>
+              <span class="service-num" aria-hidden="true">02</span>
               <h3>Videography</h3>
-              <p>Story-driven films, event coverage, interviews, and promotional videos planned, filmed, and shaped for your audience.</p>
+              <p>Event films, interviews and promos people actually watch.</p>
             </article>
             <article class="service-card">
-              <div class="icon">✦</div>
+              <span class="service-num" aria-hidden="true">03</span>
               <h3>Content Creation</h3>
-              <p>Consistent, engaging content for social media and digital channels that keeps your brand active, relevant, and recognisable.</p>
+              <p>Social-ready photos and clips that keep you consistent.</p>
             </article>
             <article class="service-card">
-              <div class="icon">◇</div>
+              <span class="service-num" aria-hidden="true">04</span>
               <h3>Graphic Design</h3>
-              <p>Striking posters, flyers, social graphics, campaigns, and branded visuals that communicate clearly and look polished.</p>
+              <p>Flyers, logos and campaigns that are clean and readable.</p>
             </article>
             <article class="service-card">
-              <div class="icon">◌</div>
+              <span class="service-num" aria-hidden="true">05</span>
               <h3>Sound Design</h3>
-              <p>Clean, expressive audio and soundscapes that give your videos, podcasts, events, and campaigns a stronger presence.</p>
+              <p>Clean audio and mixes that make video feel pro.</p>
             </article>
             <article class="service-card">
-              <div class="icon">◎</div>
+              <span class="service-num" aria-hidden="true">06</span>
               <h3>Live Streaming</h3>
-              <p>Reliable multi-camera live streaming for events, launches, conversations, and experiences that need to reach people anywhere.</p>
+              <p>Multi-camera streams that just work — anywhere.</p>
             </article>
           </div>
         </div>
@@ -155,8 +164,11 @@
       <section id="work">
         <div class="container">
           <div class="section-head">
-            <h2>Selected work.</h2>
-            <p>Selected photography, video, content, design, sound, and live productions created for brands, people, and events.</p>
+            <div>
+              <p class="section-label">Work</p>
+              <h2>Recent work.</h2>
+            </div>
+            <p>A few favourites. Tap any tile to view.</p>
           </div>
 
           <div class="work-grid">
@@ -174,7 +186,7 @@
             </article>
 
             <article class="project video-project" id="video-project-card" tabindex="0" role="button" aria-label="Play event film">
-              <video class="video-thumbnail" src="https://ik.imagekit.io/nExiton/videos/Video_thumbnail.mp4" muted loop playsinline preload="metadata" aria-label="Event film preview"></video>
+              <video class="video-thumbnail" src="https://ik.imagekit.io/nExiton/videos/Video_thumbnail.mp4" muted loop playsinline preload="none" aria-label="Event film preview"></video>
               <div class="project-overlay">
                 <div class="project-copy">
                   <small>Videography</small>
@@ -208,10 +220,10 @@
         <div class="container">
           <div class="section-head pricing-head">
             <div>
-              <span class="eyebrow">Our pricing</span>
-              <h2>Clear pricing for standout visuals.</h2>
+              <p class="section-label">Pricing</p>
+              <h2>Simple, upfront pricing.</h2>
             </div>
-            <p>Choose the format you need and let's turn your idea into a polished design that is ready to share.</p>
+            <p>Pick a package and message us to lock your date.</p>
           </div>
 
           <div class="pricing-subsection">
@@ -220,7 +232,7 @@
               <h3>Graphic Design</h3>
             </div>
 
-            <p class="pricing-intro">From one-off designs to complete brand packages, choose the creative support your project needs.</p>
+            <p class="pricing-intro">One-off designs to full brand packages.</p>
 
             <div class="price-list-wrap">
               <div class="price-list-heading">
@@ -252,7 +264,6 @@
             </div>
 
             <aside class="pricing-note">
-              <span class="pricing-note-icon" aria-hidden="true">!</span>
               <p><strong>Please note:</strong> Banner and flexy designs are priced according to size and print outs. Fixing charges are billed separately.</p>
             </aside>
           </div>
@@ -263,7 +274,7 @@
               <h3>Photography</h3>
             </div>
 
-            <p class="pricing-intro">Wedding photography packages designed to cover every meaningful part of your celebration.</p>
+            <p class="pricing-intro">Wedding coverage that catches everything that matters.</p>
 
             <div class="photography-packages">
               <article class="photography-package">
@@ -427,7 +438,7 @@
                 <span class="pricing-number">03</span>
                 <h3>Videography</h3>
               </div>
-              <p class="pricing-intro">Event coverage packages for capturing the full energy and story of your occasion.</p>
+              <p class="pricing-intro">Event coverage, start to finish.</p>
 
               <div class="photography-packages studio-packages">
                 <article class="photography-package video-regular">
@@ -595,69 +606,70 @@
       <section id="process">
         <div class="container">
           <div class="section-head">
-            <h2>A clear process from first idea to final delivery.</h2>
+            <div>
+              <p class="section-label">Process</p>
+              <h2>Easy from start to finish.</h2>
+            </div>
+            <p>Four steps. No stress.</p>
           </div>
 
           <div class="process">
             <div class="step">
               <div class="step-index">01</div>
               <h3>Discover</h3>
-              <p>We understand your goals, audience, location, schedule, and the feeling you want people to take away.</p>
+              <p>Tell us the goal, date and vibe you want.</p>
             </div>
             <div class="step">
               <div class="step-index">02</div>
               <h3>Plan</h3>
-              <p>We shape the creative direction, production plan, shot list, visuals, sound, and technical requirements.</p>
+              <p>We lock the shots, style and schedule.</p>
             </div>
             <div class="step">
               <div class="step-index">03</div>
               <h3>Produce</h3>
-              <p>Our team captures, designs, records, and streams with care, energy, and attention to every important detail.</p>
+              <p>We shoot, design and record — you relax.</p>
             </div>
             <div class="step">
               <div class="step-index">04</div>
               <h3>Deliver</h3>
-              <p>You receive polished final content ready to publish, share, promote, or experience live.</p>
+              <p>Polished files, ready to post or share.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <section>
-        <div class="container testimonial-wrap">
+      <section id="reviews">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <p class="section-label">Reviews</p>
+              <h2>Clients in their own words.</h2>
+            </div>
+          </div>
+          <div class="testimonial-wrap">
           <div class="review-stack">
             <article class="quote review-card">
               <div class="client">
-                <img src="https://ik.imagekit.io/nExiton/images/Pastor%20Evans%20Adams.jpeg?updatedAt=1788945229156" alt="Pastor Evans Adams" />
+                <img src="https://ik.imagekit.io/nExiton/images/Pastor%20Evans%20Adams.jpeg?updatedAt=1788945229156" alt="Pastor Evans Adams" loading="lazy" decoding="async" />
                 <div>
                   <strong>Pastor Evans Adams</strong>
-                  <span>Church Event & Media Client</span>
+                  <span>Church programme, Accra</span>
                 </div>
               </div>
-              <p>“Benny's Hub Studios gave our church event a polished, professional look that helped our congregation connect with the message and feel the atmosphere.”</p>
+              <p>"I called Benny two days before our programme. He came early, stayed till the end, and the photos had the whole church talking on Sunday."</p>
             </article>
 
             <article class="quote review-card">
               <div class="client">
-                <img src="https://ik.imagekit.io/nExiton/images/Black%20Mango%20Limited.jpg" alt="Black Mango Limited" />
+                <img src="https://ik.imagekit.io/nExiton/images/Black%20Mango%20Limited.jpg" alt="Black Mango Limited" loading="lazy" decoding="async" />
                 <div>
-                  <strong>Black Mango Limited</strong>
-                  <span>Brand & Campaign Client</span>
+                  <strong>Black Mango</strong>
+                  <span>Brand shoot &amp; campaign</span>
                 </div>
               </div>
-              <p>“Their creative direction, production quality, and attention to detail made our campaign feel premium from start to finish.”</p>
+              <p>"Briefed him in the morning, had designs back before close of day. Our flyers finally look like the price we charge."</p>
             </article>
           </div>
-
-          <div class="metrics">
-            <div class="mini-card">
-              <strong>2.4x</strong>
-              <span>Average audience reach lift</span>
-            </div>
-            <div class="mini-card">
-              <strong>4.9/5</strong>
-              <span>Average client rating</span>
-            </div>
           </div>
         </div>
       </section>
@@ -666,26 +678,36 @@
         <div class="container">
           <div class="project-summary-panel">
             <div class="project-summary-heading">
-              <span class="eyebrow">Project planning</span>
-              <h3>SCHEDULE A PROJECT</h3>
+              <p class="section-label">Booking</p>
+              <h3>Schedule a project</h3>
+              <p class="schedule-sub">Fill this in and we reply on WhatsApp within a day.</p>
             </div>
 
             <form id="project-summary-form" class="project-summary-form" action="#" method="post">
               <label class="summary-field">
                 <span>Name</span>
-                <input type="text" name="name" autocomplete="name" required />
+                <input type="text" name="name" autocomplete="name" placeholder="Your name" required />
               </label>
               <label class="summary-field">
                 <span>Email</span>
-                <input type="email" name="email" autocomplete="email" required />
+                <input type="email" name="email" autocomplete="email" placeholder="you@email.com" required />
               </label>
               <label class="summary-field">
                 <span>Project</span>
-                <input type="text" name="project" />
+                <input type="text" name="project" placeholder="e.g. Wedding in Kumasi" />
               </label>
               <label class="summary-field">
                 <span>Service</span>
-                <input type="text" name="service" />
+                <select name="service" required>
+                  <option value="">Select a service…</option>
+                  <option>Photography</option>
+                  <option>Videography</option>
+                  <option>Content Creation</option>
+                  <option>Graphic Design</option>
+                  <option>Sound Design</option>
+                  <option>Live Streaming</option>
+                  <option>Bundle / Not sure yet</option>
+                </select>
               </label>
               <label class="summary-field">
                 <span>Total Project Fee</span>
@@ -708,19 +730,25 @@
                 <p class="summary-static-value">30% of agreed project fee</p>
               </div>
               <fieldset class="summary-field summary-choice">
-                <legend>Source Files Included</legend>
-                <label><input type="checkbox" name="source-files-included" value="yes" /> Yes</label>
-                <label><input type="checkbox" name="source-files-included" value="no" /> No</label>
+                <legend>Source files included?</legend>
+                <div class="choice-pills">
+                  <label><input type="radio" name="source-files-included" value="yes" /><span>Yes</span></label>
+                  <label><input type="radio" name="source-files-included" value="no" checked /><span>No</span></label>
+                </div>
               </fieldset>
               <fieldset class="summary-field summary-choice">
-                <legend>Copyright Assignment</legend>
-                <label><input type="checkbox" name="copyright-assignment" value="yes" /> Yes</label>
-                <label><input type="checkbox" name="copyright-assignment" value="no" /> No</label>
+                <legend>Transfer copyright?</legend>
+                <div class="choice-pills">
+                  <label><input type="radio" name="copyright-assignment" value="yes" /><span>Yes</span></label>
+                  <label><input type="radio" name="copyright-assignment" value="no" checked /><span>No</span></label>
+                </div>
               </fieldset>
               <fieldset class="summary-field summary-choice">
-                <legend>Portfolio Permission</legend>
-                <label><input type="checkbox" name="portfolio-permission" value="yes" /> Yes</label>
-                <label><input type="checkbox" name="portfolio-permission" value="no" /> No</label>
+                <legend>May we post your work?</legend>
+                <div class="choice-pills">
+                  <label><input type="radio" name="portfolio-permission" value="yes" checked /><span>Yes</span></label>
+                  <label><input type="radio" name="portfolio-permission" value="no" /><span>No</span></label>
+                </div>
               </fieldset>
               <label class="summary-field">
                 <span>Project Start Date</span>
@@ -745,8 +773,9 @@
         <div class="container">
           <div class="cta-panel">
             <div class="contact-copy">
-              <h2>Ready to bring your next idea to life?</h2>
-              <p>Let's create photography, video, content, design, sound, or a live experience that people remember.</p>
+              <p class="section-label">Contact</p>
+              <h2>Got an idea? Let's make it.</h2>
+              <p>Message us — we reply fast.</p>
             </div>
 
             <div class="contact-actions">
@@ -781,7 +810,6 @@
       <section id="make-payment" class="payment-section" hidden>
         <div class="container">
           <div class="payment-header">
-            <span class="eyebrow">Make payment</span>
             <h2>Select your package.</h2>
             <p>Choose a pricing section, then a package group, and finally the package that suits your project.</p>
           </div>
@@ -848,18 +876,48 @@
     </main>
 
     <footer class="footer">
-      <div class="container footer-row">
-        <div>© <span id="year"></span> Benny's Hub Studios</div>
-        <div class="footer-links">
+      <div class="container footer-top">
+        <div class="footer-brand">
+          <a href="#home" class="brand" aria-label="Benny's Hub Studios home">
+            <span class="brand-mark">
+              <img src="Official Logo.png" alt="Benny's Hub Studios logo" loading="lazy" decoding="async" width="52" height="52" />
+            </span>
+            <span>Benny's Hub Studios</span>
+          </a>
+          <p>Photo, film, design &amp; sound from Accra, Ghana. We make moments worth keeping.</p>
+          <a class="btn btn-secondary footer-cta" href="#schedule">Book a date</a>
+        </div>
+
+        <nav class="footer-col" aria-label="Studio">
+          <h4>Studio</h4>
           <a href="#about">About</a>
           <a href="#work">Work</a>
-          <a href="#services">Services</a>
           <a href="#pricing">Pricing</a>
-          <a href="mailto:asarebernard828@gmail.com">Email</a>
+          <a href="#process">Process</a>
+        </nav>
+
+        <nav class="footer-col" aria-label="Services">
+          <h4>Services</h4>
+          <a href="#services">Photography</a>
+          <a href="#services">Videography</a>
+          <a href="#services">Graphic Design</a>
+          <a href="#services">Live Streaming</a>
+        </nav>
+
+        <div class="footer-col" aria-label="Contact">
+          <h4>Talk to us</h4>
+          <a href="https://wa.me/233570688025">WhatsApp: 0570688025</a>
+          <a href="mailto:asarebernard828@gmail.com">asarebernard828@gmail.com</a>
+          <span class="footer-locale">Accra, Ghana · Mon–Sat</span>
         </div>
       </div>
+
+      <div class="container footer-bottom">
+        <div>© <span id="year"></span> Benny's Hub Studios. All rights reserved.</div>
+        <a href="#home" class="to-top">Back to top ↑</a>
+      </div>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
+    <script src="script.js" defer></script>
   </body>
 </html>
