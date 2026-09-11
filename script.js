@@ -116,6 +116,29 @@ if (heroDecor && heroSection && !window.matchMedia("(prefers-reduced-motion: red
 }
 const sectionIds = ["about", "work", "services", "pricing", "process", "schedule", "contact"];
 const navAnchors = new Map();
+
+document.querySelectorAll(".choice-pills").forEach((group) => {
+    const thumb = document.createElement("span");
+    thumb.className = "pill-thumb";
+    thumb.setAttribute("aria-hidden", "true");
+    group.prepend(thumb);
+
+    const moveThumb = () => {
+        const checked = group.querySelector("input:checked")?.closest("label")?.querySelector("span");
+        if (!checked) {
+            return;
+        }
+        thumb.style.left = `${checked.offsetLeft}px`;
+        thumb.style.width = `${checked.offsetWidth}px`;
+    };
+
+    group.querySelectorAll("input").forEach((input) => {
+        input.addEventListener("change", moveThumb);
+    });
+    window.addEventListener("resize", moveThumb);
+    window.addEventListener("load", moveThumb);
+    moveThumb();
+});
 mainNav?.querySelectorAll("a").forEach((link) => {
     const hash = link.getAttribute("href");
     if (hash && hash.startsWith("#")) {

@@ -1154,14 +1154,31 @@
       }
 
       .choice-pills {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
+        position: relative;
+        display: inline-flex;
+        gap: 2px;
+        padding: 3px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--bg);
+        max-width: 100%;
+      }
+
+      .pill-thumb {
+        position: absolute;
+        top: 3px;
+        bottom: 3px;
+        left: 0;
+        width: 0;
+        border-radius: 999px;
+        background: var(--text);
+        transition: left 0.25s ease, width 0.25s ease;
       }
 
       .choice-pills label {
         position: relative;
-        flex: 1 1 120px;
+        z-index: 1;
+        flex: 0 0 auto;
         cursor: pointer;
       }
 
@@ -1177,20 +1194,18 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        min-height: 48px;
-        padding: 0.7rem 1rem;
-        border: 1px solid var(--line);
+        min-width: 72px;
+        min-height: 34px;
+        padding: 0.4rem 0.9rem;
         border-radius: 999px;
         color: var(--muted);
-        background: var(--bg);
+        font-size: 0.85rem;
         font-weight: 600;
-        transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+        transition: color 0.2s ease;
       }
 
       .choice-pills label:has(input:checked) span {
-        border-color: var(--text);
         color: #111113;
-        background: var(--text);
       }
 
       .choice-pills label:has(input:focus-visible) span {
