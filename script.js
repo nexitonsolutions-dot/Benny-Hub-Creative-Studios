@@ -59,7 +59,7 @@ if (heroDecor && heroSection && !window.matchMedia("(prefers-reduced-motion: red
 
         const riseHeight = heroSection.offsetHeight + 200;
         const drift = randomBetween(-40, 40);
-        const duration = randomBetween(8000, 13000);
+        const duration = randomBetween(14000, 20000);
 
         heroDecor.appendChild(floater);
         const rise = floater.animate(
@@ -73,8 +73,13 @@ if (heroDecor && heroSection && !window.matchMedia("(prefers-reduced-motion: red
         rise.onfinish = () => floater.remove();
     };
 
-    window.setInterval(spawnFloater, 2200);
-    window.setTimeout(spawnFloater, 400);
+    const spawnBurst = () => {
+        spawnFloater();
+        spawnFloater();
+    };
+
+    window.setInterval(spawnBurst, 2600);
+    window.setTimeout(spawnBurst, 400);
 }
 const sectionIds = ["about", "work", "services", "pricing", "process", "schedule", "contact"];
 const navAnchors = new Map();
