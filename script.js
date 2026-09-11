@@ -43,8 +43,7 @@ if (heroDecor && heroSection && !window.matchMedia("(prefers-reduced-motion: red
     const randomBetween = (min, max) => min + Math.random() * (max - min);
 
     const spawnFloater = () => {
-        const maxAlive = smallScreen.matches ? 3 : 4;
-        if (!heroVisible || document.hidden || heroDecor.childElementCount >= maxAlive) {
+        if (!heroVisible || document.hidden) {
             return;
         }
 
