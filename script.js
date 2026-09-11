@@ -124,12 +124,12 @@ document.querySelectorAll(".choice-pills").forEach((group) => {
     group.prepend(thumb);
 
     const moveThumb = () => {
-        const checked = group.querySelector("input:checked")?.closest("label")?.querySelector("span");
-        if (!checked) {
+        const label = group.querySelector("input:checked")?.closest("label");
+        if (!label) {
             return;
         }
-        thumb.style.left = `${checked.offsetLeft}px`;
-        thumb.style.width = `${checked.offsetWidth}px`;
+        thumb.style.left = `${label.offsetLeft}px`;
+        thumb.style.width = `${label.offsetWidth}px`;
     };
 
     group.querySelectorAll("input").forEach((input) => {
@@ -137,6 +137,9 @@ document.querySelectorAll(".choice-pills").forEach((group) => {
     });
     window.addEventListener("resize", moveThumb);
     window.addEventListener("load", moveThumb);
+    if (document.fonts?.ready) {
+        document.fonts.ready.then(moveThumb);
+    }
     moveThumb();
 });
 mainNav?.querySelectorAll("a").forEach((link) => {

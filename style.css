@@ -1156,6 +1156,7 @@
       .choice-pills {
         position: relative;
         display: inline-flex;
+        justify-self: start;
         gap: 2px;
         padding: 3px;
         border: 1px solid var(--line);
