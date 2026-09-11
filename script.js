@@ -87,13 +87,13 @@ if (heroDecor && heroSection && !window.matchMedia("(prefers-reduced-motion: red
 
         const riseHeight = heroSection.offsetHeight + 200;
         const drift = randomBetween(-40, 40);
-        const duration = randomBetween(14000, 20000);
+        const duration = randomBetween(22000, 30000);
 
         heroDecor.appendChild(floater);
         const rise = floater.animate(
             [
                 { transform: "translate(0, 0) rotate(0deg)", opacity: 0 },
-                { transform: `translate(${drift * 0.4}px, ${-riseHeight * 0.25}px) rotate(2deg)`, opacity: 0.1, offset: 0.2 },
+                { transform: `translate(${drift * 0.4}px, ${-riseHeight * 0.25}px) rotate(2deg)`, opacity: 0.05, offset: 0.2 },
                 { transform: `translate(${drift}px, ${-riseHeight}px) rotate(-2deg)`, opacity: 0 }
             ],
             { duration, easing: "linear", fill: "forwards" }
