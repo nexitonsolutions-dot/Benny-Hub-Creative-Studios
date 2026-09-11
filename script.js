@@ -123,24 +123,31 @@ document.querySelectorAll(".choice-pills").forEach((group) => {
     thumb.setAttribute("aria-hidden", "true");
     group.prepend(thumb);
 
-    const moveThumb = () => {
+    const moveThumb = (instant = false) => {
         const label = group.querySelector("input:checked")?.closest("label");
         if (!label) {
             return;
         }
-        thumb.style.left = `${label.offsetLeft}px`;
+        if (instant) {
+            thumb.style.transition = "none";
+        }
+        thumb.style.transform = `translateX(${label.offsetLeft}px)`;
         thumb.style.width = `${label.offsetWidth}px`;
+        if (instant) {
+            void thumb.offsetWidth;
+            thumb.style.transition = "";
+        }
     };
 
     group.querySelectorAll("input").forEach((input) => {
-        input.addEventListener("change", moveThumb);
+        input.addEventListener("change", () => moveThumb());
     });
-    window.addEventListener("resize", moveThumb);
-    window.addEventListener("load", moveThumb);
+    window.addEventListener("resize", () => moveThumb(true));
+    window.addEventListener("load", () => moveThumb(true));
     if (document.fonts?.ready) {
-        document.fonts.ready.then(moveThumb);
+        document.fonts.ready.then(() => moveThumb(true));
     }
-    moveThumb();
+    moveThumb(true);
 });
 mainNav?.querySelectorAll("a").forEach((link) => {
     const hash = link.getAttribute("href");
