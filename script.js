@@ -14,6 +14,44 @@ mainNav?.querySelectorAll("a").forEach((link) => {
     });
 });
 
+const heroFloater = document.getElementById("hero-floater");
+const floaterAssets = [
+    "assets/camera.svg",
+    "assets/lens.svg",
+    "assets/film.svg",
+    "assets/tripod.svg",
+    "assets/drone.svg",
+    "assets/spotlight.svg"
+];
+const floaterPositions = ["pos-a", "pos-b", "pos-c"];
+
+if (heroFloater && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    floaterAssets.forEach((src) => {
+        const preload = new Image();
+        preload.src = src;
+    });
+
+    let floaterIndex = 0;
+    const LIVE_MS = 3000;
+    const FADE_MS = 800;
+    const GAP_MS = 1200;
+
+    const showNextFloater = () => {
+        heroFloater.classList.remove("is-visible", ...floaterPositions);
+        heroFloater.src = floaterAssets[floaterIndex % floaterAssets.length];
+        heroFloater.classList.add(floaterPositions[floaterIndex % floaterPositions.length]);
+        void heroFloater.offsetWidth;
+        heroFloater.classList.add("is-visible");
+        floaterIndex += 1;
+
+        window.setTimeout(() => {
+            heroFloater.classList.remove("is-visible");
+            window.setTimeout(showNextFloater, FADE_MS + GAP_MS);
+        }, LIVE_MS);
+    };
+
+    window.setTimeout(showNextFloater, 600);
+}
 const sectionIds = ["about", "work", "services", "pricing", "process", "schedule", "contact"];
 const navAnchors = new Map();
 mainNav?.querySelectorAll("a").forEach((link) => {

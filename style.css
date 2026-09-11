@@ -201,35 +201,45 @@
         color: var(--text);
       }
 
-      .float-el {
+      .floater {
         position: absolute;
-        opacity: 0.07;
-        animation: floaty 9s ease-in-out infinite;
+        width: 110px;
+        height: auto;
+        opacity: 0;
+        filter: brightness(0) invert(1);
+        transition: opacity 0.8s ease, transform 3.5s ease;
+        will-change: opacity, transform;
       }
 
-      .float-camera {
-        width: 120px;
-        top: 8%;
+      .floater.is-visible {
+        opacity: 0.08;
+      }
+
+      .floater.pos-a {
+        top: 10%;
         left: 4%;
       }
 
-      .float-lens {
-        width: 90px;
-        bottom: 10%;
-        left: 44%;
-        animation-delay: -3s;
-      }
-
-      .float-clap {
-        width: 100px;
-        top: 14%;
+      .floater.pos-b {
+        top: 16%;
         right: 5%;
-        animation-delay: -6s;
       }
 
-      @keyframes floaty {
-        0%, 100% { transform: translateY(0) rotate(0deg); }
-        50% { transform: translateY(-14px) rotate(3deg); }
+      .floater.pos-c {
+        bottom: 12%;
+        left: 42%;
+      }
+
+      .floater.is-visible.pos-a {
+        transform: translateY(-12px) rotate(2deg);
+      }
+
+      .floater.is-visible.pos-b {
+        transform: translateY(-10px) rotate(-2deg);
+      }
+
+      .floater.is-visible.pos-c {
+        transform: translateY(-14px) rotate(1deg);
       }
 
       .hero-grid {
@@ -1600,16 +1610,12 @@
           padding-top: 32px;
         }
 
-        .float-lens {
+        .floater {
+          width: 76px;
+        }
+
+        .floater.pos-c {
           display: none;
-        }
-
-        .float-camera {
-          width: 84px;
-        }
-
-        .float-clap {
-          width: 72px;
         }
 
         h1 {
@@ -1698,7 +1704,7 @@
           transition: none;
         }
 
-        .float-el {
-          animation: none;
+        .floater {
+          display: none;
         }
       }
