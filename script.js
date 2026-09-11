@@ -22,8 +22,28 @@ const floaterAssets = [
     "assets/film.svg",
     "assets/tripod.svg",
     "assets/drone.svg",
-    "assets/spotlight.svg"
+    "assets/spotlight.svg",
+    "assets/mic.svg",
+    "assets/headphones.svg",
+    "assets/clapperboard.svg",
+    "assets/projector.svg",
+    "assets/webcam.svg",
+    "assets/speaker.svg",
+    "assets/aperture.svg",
+    "assets/video.svg"
 ];
+let floaterBag = [];
+
+const drawFloaterAsset = () => {
+    if (floaterBag.length === 0) {
+        floaterBag = [...floaterAssets];
+        for (let i = floaterBag.length - 1; i > 0; i -= 1) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [floaterBag[i], floaterBag[j]] = [floaterBag[j], floaterBag[i]];
+        }
+    }
+    return floaterBag.pop();
+};
 
 if (heroDecor && heroSection && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     floaterAssets.forEach((src) => {
@@ -42,7 +62,15 @@ if (heroDecor && heroSection && !window.matchMedia("(prefers-reduced-motion: red
 
     const randomBetween = (min, max) => min + Math.random() * (max - min);
 
-    const spawnFloater = () => {
+    const pickLane = (taken) => {
+        let lane = randomBetween(2, 90);
+        for (let attempt = 0; attempt < 6 && taken.some((t) => Math.abs(t - lane) < 22); attempt += 1) {
+            lane = randomBetween(2, 90);
+        }
+        return lane;
+    };
+
+    const spawnFloater = (taken) => {
         if (!heroVisible || document.hidden) {
             return;
         }
@@ -50,11 +78,12 @@ if (heroDecor && heroSection && !window.matchMedia("(prefers-reduced-motion: red
         const floater = document.createElement("img");
         floater.className = "floater";
         floater.alt = "";
-        floater.src = floaterAssets[Math.floor(Math.random() * floaterAssets.length)];
+        floater.src = drawFloaterAsset();
 
         const size = smallScreen.matches ? randomBetween(28, 46) : randomBetween(34, 58);
+        const lane = pickLane(taken);
         floater.style.width = `${size}px`;
-        floater.style.left = `${randomBetween(2, 90)}%`;
+        floater.style.left = `${lane}%`;
 
         const riseHeight = heroSection.offsetHeight + 200;
         const drift = randomBetween(-40, 40);
@@ -70,11 +99,16 @@ if (heroDecor && heroSection && !window.matchMedia("(prefers-reduced-motion: red
             { duration, easing: "linear", fill: "forwards" }
         );
         rise.onfinish = () => floater.remove();
+        return lane;
     };
 
     const spawnBurst = () => {
-        spawnFloater();
-        spawnFloater();
+        const taken = [];
+        const first = spawnFloater(taken);
+        if (typeof first === "number") {
+            taken.push(first);
+        }
+        spawnFloater(taken);
     };
 
     window.setInterval(spawnBurst, 2600);
