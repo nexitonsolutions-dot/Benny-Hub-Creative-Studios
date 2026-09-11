@@ -204,9 +204,9 @@ const projectSummaryTitle = document.getElementById("project-summary-title");
 let totalSlides = 0;
 
 const emailJsConfig = {
-    publicKey: "y1iAuzvHV73KBFnCO",
+    publicKey: "oX0wZaUelWQ2ZlsXE",
     serviceId: "service_mb0xwrg",
-    templateId: "template_mpjqqvi"
+    templateId: "template_0e9ar2a"
 };
 
 const pricingCatalog = {
